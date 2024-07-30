@@ -15,18 +15,28 @@ export default function Home() {
   const [participants, setParticipants] = useState<string[]>([]); // array de participants
 
   function handleAddParticipant() {
+    if (!participant.trim()) {
+      Alert.alert("Aviso", "Informe um nome de participante!");
+      return;
+    }
     if (participants.includes(participant.trim())) {
       Alert.alert("Aviso", "Participante já cadastrado!");
       setParticipant("");
       return;
     }
-    setParticipants([...participants, participant.trim()]);
+    setParticipants([...participants, participant]);
     setParticipant("");
   }
   function handleParticipatRemove(name: string) {
     Alert.alert("Aviso", `Deseja remover ${name} do evento?`, [
       { text: "Não", style: "cancel" },
-      { text: "Sim", onPress: () => setParticipants(prevState => prevState.filter(participant => participant !== name)) }
+      {
+        text: "Sim",
+        onPress: () =>
+          setParticipants((prevState) =>
+            prevState.filter((participant) => participant !== name)
+          ),
+      },
     ]);
   }
   return (
@@ -57,9 +67,7 @@ export default function Home() {
         )}
         showsHorizontalScrollIndicator={false}
         ListEmptyComponent={() => (
-          <Text
-            style={{ color: "#6b6b6b", textAlign: "center"}}
-          >
+          <Text style={{ color: "#6b6b6b", textAlign: "center" }}>
             Nenhum participante cadastrado
           </Text>
         )}
