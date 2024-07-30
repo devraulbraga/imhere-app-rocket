@@ -26,7 +26,7 @@ export default function Home() {
   function handleParticipatRemove(name: string) {
     Alert.alert("Aviso", `Deseja remover ${name} do evento?`, [
       { text: "Não", style: "cancel" },
-      { text: "Sim" },
+      { text: "Sim", onPress: () => setParticipants(prevState => prevState.filter(participant => participant !== name)) }
     ]);
   }
   return (
@@ -58,7 +58,7 @@ export default function Home() {
         showsHorizontalScrollIndicator={false}
         ListEmptyComponent={() => (
           <Text
-            style={{ color: "#6b6b6b", textAlign: "center", marginTop: 20 }}
+            style={{ color: "#6b6b6b", textAlign: "center"}}
           >
             Nenhum participante cadastrado
           </Text>
