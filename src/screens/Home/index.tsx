@@ -11,15 +11,17 @@ import { styles } from "./style";
 import { useState } from "react";
 
 export default function Home() {
-  const [participant, setParticipant] = useState("");
-  const participants = ["Raul", "Rafael", "Ronaldo"];
+  const [participant, setParticipant] = useState(""); // nome do participante que será adicionado
+  const [participants, setParticipants] = useState<string[]>([]); // array de participants
 
   function handleAddParticipant() {
-    if (participants.includes(participant)) {
+    if (participants.includes(participant.trim())) {
       Alert.alert("Aviso", "Participante já cadastrado!");
       setParticipant("");
       return;
     }
+    setParticipants([...participants, participant.trim()]);
+    setParticipant("");
   }
   function handleParticipatRemove(name: string) {
     Alert.alert("Aviso", `Deseja remover ${name} do evento?`, [
